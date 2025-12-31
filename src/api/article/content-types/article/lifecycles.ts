@@ -3,9 +3,9 @@ const { errors } = require('@strapi/utils');
 export default {
     async beforeCreate(event: any) {
         const { data } = event.params;
-        if (data.pinned === true) {
+        if (data.epingle === true) {
             const pinnedCount = await strapi.documents('api::article.article').count({
-                filters: { pinned: true, status: 'published' } as any
+                filters: { epingle: true, status: 'published' } as any
             });
 
             if (pinnedCount >= 3) {
@@ -17,10 +17,10 @@ export default {
     async beforeUpdate(event: any) {
         const { data, where } = event.params;
 
-        // Check if pinned is being updated to true
-        if (data.pinned === true) {
+        // Check if epingle is being updated to true
+        if (data.epingle === true) {
             const pinnedArticles = await strapi.documents('api::article.article').findMany({
-                filters: { pinned: true, status: 'published' } as any
+                filters: { epingle: true, status: 'published' } as any
             });
 
             // Filter out the current article being updated
@@ -32,3 +32,4 @@ export default {
         }
     },
 };
+

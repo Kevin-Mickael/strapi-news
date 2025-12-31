@@ -45,7 +45,7 @@
             "type": "integer",
             "default": 5
         },
-        "pinned": {
+        "epingle": {
             "type": "boolean",
             "default": false
         },
