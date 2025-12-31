@@ -1,0 +1,36 @@
+{
+    "kind": "collectionType",
+    "collectionName": "comments",
+    "info": {
+        "singularName": "comment",
+        "pluralName": "comments",
+        "displayName": "Comment",
+        "description": "User comments for articles"
+    },
+    "options": {
+        "draftAndPublish": false
+    },
+    "attributes": {
+        "authorName": {
+            "type": "string",
+            "required": true
+        },
+        "authorEmail": {
+            "type": "email",
+            "required": true
+        },
+        "content": {
+            "type": "text",
+            "required": true
+        },
+        "adminReply": {
+            "type": "text"
+        },
+        "article": {
+            "type": "relation",
+            "relation": "manyToOne",
+            "target": "api::article.article",
+            "inversedBy": "comments"
+        }
+    }
+}
