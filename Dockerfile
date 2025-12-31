@@ -1,6 +1,6 @@
 # Creating a multi-stage docker image for Strapi
 
-FROM node:20-alpine as build
+FROM node:20-alpine AS build
 RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev vips-dev > /dev/null 2>&1
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
@@ -25,7 +25,7 @@ WORKDIR /opt/app
 COPY --from=build /opt/app ./
 ENV PATH /opt/node_modules/.bin:$PATH
 
-chown -R node:node /opt/app
+RUN chown -R node:node /opt/app
 USER node
 EXPOSE 1337
 CMD ["npm", "run", "start"]
