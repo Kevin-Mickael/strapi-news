@@ -1,3 +1,4 @@
+const { errors } = require('@strapi/utils');
 
 export default {
     async beforeCreate(event: any) {
@@ -8,7 +9,7 @@ export default {
             });
 
             if (pinnedCount >= 3) {
-                throw new Error('Vous ne pouvez pas épingler plus de 3 articles.');
+                throw new errors.ApplicationError('Vous ne pouvez pas épingler plus de 3 articles.');
             }
         }
     },
@@ -26,7 +27,7 @@ export default {
             const otherPinnedArticles = pinnedArticles.filter(art => art.documentId !== where.documentId);
 
             if (otherPinnedArticles.length >= 3) {
-                throw new Error('Vous ne pouvez pas épingler plus de 3 articles.');
+                throw new errors.ApplicationError('Vous ne pouvez pas épingler plus de 3 articles.');
             }
         }
     },
