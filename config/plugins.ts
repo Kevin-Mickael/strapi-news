@@ -3,9 +3,15 @@ export default ({ env }) => {
     const smtpPort = env.int('SMTP_PORT', 587);
     const smtpUser = env('SMTP_USERNAME');
     const smtpPass = env('SMTP_PASSWORD');
+
+    // Explicitly check for 'true' or port 465
     const smtpSecure = env.bool('SMTP_SECURE', smtpPort === 465);
 
-    console.log(`[EMAIL CONFIG RUNTIME] Host: ${smtpHost} | Port: ${smtpPort} | Secure: ${smtpSecure} | User: ${smtpUser ? 'Set' : 'Not Set'}`);
+    console.log(`[EMAIL CONFIG] STARTUP CHECK:`);
+    console.log(`- Host: ${smtpHost}`);
+    console.log(`- Port: ${smtpPort} (type: ${typeof smtpPort})`);
+    console.log(`- Secure: ${smtpSecure} (type: ${typeof smtpSecure})`);
+    console.log(`- User: ${smtpUser ? 'Defined' : 'UNDEFINED'}`);
 
     return {
         upload: {
@@ -15,11 +21,6 @@ export default ({ env }) => {
                     cloud_name: env('CLOUDINARY_NAME'),
                     api_key: env('CLOUDINARY_KEY'),
                     api_secret: env('CLOUDINARY_SECRET'),
-                },
-                actionOptions: {
-                    upload: {},
-                    uploadStream: {},
-                    delete: {},
                 },
             },
         },
@@ -35,11 +36,13 @@ export default ({ env }) => {
                     },
                     secure: smtpSecure,
                     tls: {
+                        // Crucial for some cloud setups
                         rejectUnauthorized: false,
+                        minVersion: 'TLSv1.2'
                     },
-                    connectionTimeout: 20000, // 20 seconds
-                    greetingTimeout: 20000,
-                    socketTimeout: 20000,
+                    connectionTimeout: 30000, // 30 seconds
+                    greetingTimeout: 30000,
+                    socketTimeout: 30000,
                 },
                 settings: {
                     defaultFrom: env('SMTP_FROM', 'support@creatymu.org'),
@@ -50,8 +53,6 @@ export default ({ env }) => {
     };
 };
 
-// Diagnostic logging - build time
-console.log(`[EMAIL CONFIG BUILD TIME] SMTP_PORT: ${process.env.SMTP_PORT || 'Default 587'}`);
 
 
 

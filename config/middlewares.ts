@@ -8,7 +8,10 @@ export default [
         useDefaults: true,
         directives: {
           'connect-src': ["'self'", 'https:', 'http:'],
-          'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'", 'https://static.cloudflareinsights.com'],
+          'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'", 'https://static.cloudflareinsights.com', 'https://*.strapi.io'],
+          'script-src-elem': ["'self'", "'unsafe-inline'", 'https://static.cloudflareinsights.com', 'https://*.strapi.io'],
+          'style-src': ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+          'font-src': ["'self'", 'https://fonts.gstatic.com'],
           'img-src': [
             "'self'",
             'data:',
