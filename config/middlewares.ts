@@ -28,7 +28,6 @@ export default [
             'res.cloudinary.com',
           ],
           upgradeInsecureRequests: null,
-
         },
       },
     },
@@ -36,10 +35,20 @@ export default [
   {
     name: 'strapi::cors',
     config: {
-      origin: ['https://creatymu.org', 'https://www.creatymu.org', 'http://localhost:5500', 'http://127.0.0.1:5500'], // Add allowed origins
+      origin: ['https://creatymu.org', 'https://www.creatymu.org', 'http://localhost:5500', 'http://127.0.0.1:5500'],
       credentials: true,
       methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'],
       headers: ['Content-Type', 'Authorization', 'Origin', 'Accept'],
+    },
+  },
+  {
+    name: 'strapi::rateLimit',
+    config: {
+      interval: 60 * 1000, // 1 minute
+      max: 100,            // 100 requêtes par IP par minute
+      keyGenerator(ctx) {
+        return ctx.ip; // Rate limit par adresse IP
+      },
     },
   },
   'strapi::poweredBy',
