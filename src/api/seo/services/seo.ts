@@ -66,10 +66,10 @@ export default () => ({
             xml += `
   <item>
     <title>${this.escapeXml(article.title)}</title>
-    <link>${baseUrl}/blog/${article.slug}</link>
+    <link>${baseUrl}/blog?slug=${article.slug}</link>
     <description>${this.escapeXml(article.description || '')}</description>
     <pubDate>${new Date(article.publishedAt).toUTCString()}</pubDate>
-    <guid>${baseUrl}/blog/${article.slug}</guid>
+    <guid>${baseUrl}/blog?slug=${article.slug}</guid>
   </item>`;
         });
 
