@@ -24,6 +24,9 @@ export default ({ env }) => ({
                     user: env('SMTP_USERNAME'),
                     pass: env('SMTP_PASSWORD'),
                 },
+                tls: {
+                    rejectUnauthorized: false,
+                },
                 // secure: false for port 587 (STARTTLS), true for 465 (SSL)
                 secure: env.bool('SMTP_SECURE', false),
             },

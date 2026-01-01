@@ -17,7 +17,7 @@ export default {
             strapi.log.info(`Contact message received from: ${email}`);
             const emailOptions = {
                 to: 'support@creatymu.org',
-                from: 'support@creatymu.org',
+                from: process.env.SMTP_FROM || 'support@creatymu.org',
                 replyTo: email,
                 subject: `New contact message from ${name}`,
                 text: `
