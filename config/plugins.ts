@@ -37,3 +37,10 @@ export default ({ env }) => ({
         },
     },
 });
+
+// Diagnostic logging
+console.log('EMAIL CONFIG: Loading email provider config');
+console.log('EMAIL CONFIG: Host:', process.env.SMTP_HOST);
+console.log('EMAIL CONFIG: Port:', process.env.SMTP_PORT);
+console.log('EMAIL CONFIG: User:', process.env.SMTP_USERNAME ? '(set)' : '(not set)');
+
