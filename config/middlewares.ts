@@ -42,12 +42,14 @@ export default [
     },
   },
   {
-    name: 'strapi::rateLimit',
+    name: 'global::rate-limit',
     config: {
-      interval: 60 * 1000, // 1 minute
-      max: 100,            // 100 requêtes par IP par minute
-      keyGenerator(ctx) {
-        return ctx.ip; // Rate limit par adresse IP
+      interval: { min: 1 },  // 1 minute window
+      max: 100,              // 100 requests per minute per IP
+      message: 'Trop de requêtes. Veuillez réessayer dans 1 minute.',
+      keyGenerator: (ctx) => {
+        // Handle proxies (Railway, Heroku, etc.)
+        return ctx.headers['x-forwarded-for'] || ctx.request.ip || ctx.ip || 'unknown';
       },
     },
   },
