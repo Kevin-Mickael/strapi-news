@@ -36,7 +36,7 @@ export default [
   {
     name: 'strapi::cors',
     config: {
-      origin: ['https://creatymu.org', 'http://localhost:5500', 'http://127.0.0.1:5500'], // Add allowed origins
+      origin: ['https://creatymu.org', 'https://www.creatymu.org', 'http://localhost:5500', 'http://127.0.0.1:5500'], // Add allowed origins
       credentials: true,
       methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'],
       headers: ['Content-Type', 'Authorization', 'Origin', 'Accept'],
