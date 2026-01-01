@@ -43,8 +43,16 @@ ${message}
 
             return { success: true };
         } catch (err) {
-            strapi.log.error('Email sending failed in controller:', err.message || err);
-            return ctx.internalServerError(`Failed to send email: ${err.message || 'Internal error'}`);
+            strapi.log.error('Email sending failed in controller:');
+            strapi.log.error(err);
+
+            // Detailed error message for debugging
+            const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+            const errorStack = err instanceof Error ? err.stack : '';
+
+            strapi.log.error(`Stack: ${errorStack}`);
+
+            return ctx.internalServerError(`Failed to send email: ${errorMessage}. If this persists, check SMTP settings.`);
         }
     },
 };

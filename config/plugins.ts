@@ -18,29 +18,35 @@ export default ({ env }) => ({
         config: {
             provider: 'nodemailer',
             providerOptions: {
-                host: env('SMTP_HOST', 'smtp.example.com'),
+                host: env('SMTP_HOST', 'smtp-relay.brevo.com'),
                 port: env.int('SMTP_PORT', 587),
                 auth: {
                     user: env('SMTP_USERNAME'),
                     pass: env('SMTP_PASSWORD'),
                 },
+                // For port 465 (SMTPS), we must set secure: true
+                // For port 587 (STARTTLS), we must set secure: false
+                secure: env.bool('SMTP_SECURE', env.int('SMTP_PORT') === 465),
                 tls: {
                     rejectUnauthorized: false,
+                    // minVersion: 'TLSv1.2'
                 },
-                // secure: false for port 587 (STARTTLS), true for 465 (SSL)
-                secure: env.bool('SMTP_SECURE', false),
+                connectionTimeout: 10000, // 10 seconds timeout
             },
             settings: {
-                defaultFrom: env('SMTP_FROM', 'no-reply@creatymu.org'),
+                defaultFrom: env('SMTP_FROM', 'support@creatymu.org'),
                 defaultReplyTo: env('SMTP_REPLY_TO', 'support@creatymu.org'),
             },
         },
     },
 });
 
-// Diagnostic logging
-console.log('EMAIL CONFIG: Loading email provider config');
-console.log('EMAIL CONFIG: Host:', process.env.SMTP_HOST);
-console.log('EMAIL CONFIG: Port:', process.env.SMTP_PORT);
-console.log('EMAIL CONFIG: User:', process.env.SMTP_USERNAME ? '(set)' : '(not set)');
+// Diagnostic logging - help debug Railway env issues
+const host = process.env.SMTP_HOST || 'smtp-relay.brevo.com';
+const port = process.env.SMTP_PORT || '587';
+const secure = process.env.SMTP_SECURE || (port === '465' ? 'true' : 'false');
+const user = process.env.SMTP_USERNAME ? '(set)' : '(not set)';
+
+console.log(`[EMAIL CONFIG] Host: ${host} | Port: ${port} | Secure: ${secure} | User: ${user}`);
+
 
