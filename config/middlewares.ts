@@ -7,13 +7,15 @@ export default [
       contentSecurityPolicy: {
         useDefaults: true,
         directives: {
-          'connect-src': ["'self'", 'https:'],
+          'connect-src': ["'self'", 'https:', 'http:'],
+          'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'", 'https://static.cloudflareinsights.com'],
           'img-src': [
             "'self'",
             'data:',
             'blob:',
             'dl.airtable.com',
             'res.cloudinary.com',
+            'strapi.io',
           ],
           'media-src': [
             "'self'",
@@ -23,6 +25,7 @@ export default [
             'res.cloudinary.com',
           ],
           upgradeInsecureRequests: null,
+
         },
       },
     },
