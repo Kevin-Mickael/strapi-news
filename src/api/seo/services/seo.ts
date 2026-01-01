@@ -32,9 +32,9 @@ export default () => ({
         articles.forEach((article: any) => {
             xml += `
   <url>
-    <loc>${baseUrl}/blog/${article.slug}</loc>
+    <loc>${baseUrl}/blog?slug=${article.slug}</loc>
     <lastmod>${new Date(article.updatedAt).toISOString()}</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>`;
         });
